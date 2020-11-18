@@ -3,9 +3,9 @@
     "browser": true
   },
   "extends": [
-    "airbnb",
-    "eslint:recommended",
-    "plugin:react/recommended",
+    // "airbnb",
+    // "eslint:recommended",
+    // "plugin:react/recommended",
     "standard",
     "standard-jsx",
     "standard-react"
@@ -19,9 +19,20 @@
   },
   "plugins": [
     "react",
-    "prettier"
+    "prettier",
+    "react-hooks"
   ],
   "rules": {
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "never",
+        "objects": "never",
+        "imports": "never",
+        "exports": "never",
+        "functions": "never"
+      }
+    ],
     "indent": [
       "error",
       2
