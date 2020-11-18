@@ -10,7 +10,9 @@ const App = () => {
 
   useEffect(() => {
     if (firstLoad) {
-      requestList(lists.entries().next().value[0]).then((data) => setList(data))
+      const id = lists.entries().next().value[0]
+      requestList(id).then((data) => setList(data))
+      setInterval(() => requestList(id).then((data) => setList(data)), 5000)
     }
     setFirstLoad(false)
   }, [firstLoad])
@@ -23,11 +25,21 @@ const App = () => {
 }
 
 const colors = {
+  black000: '#000000',
   black00: '#171717',
   black01: '#1C1C1C',
-  black03: '#292929',
+  black03: '#232326',
   grey00: '#2F2F2F',
-  white00: '#F9F9F9'
+  white00: '#F9F9F9',
+  purple00: '#402C47',
+  purple01: '#D578EA',
+  pink00: '#4C252D',
+  pink01: '#F8317E',
+  green00: '#2D5035',
+  green01: '#4CD964',
+  blue00: '#16467E',
+  blue01: '#FFFFFF',
+  orange01: '#FA9500'
 }
 
 const Container = styled.div`

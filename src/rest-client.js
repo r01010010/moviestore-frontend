@@ -1,4 +1,6 @@
-const URL = 'https://gizmo.rakuten.tv'
+import memoizee from 'memoizee'
+
+const HOST = 'https://gizmo.rakuten.tv'
 
 const REQUEST_CONFIG = [
   ['classification_id', 5],
@@ -9,15 +11,15 @@ const REQUEST_CONFIG = [
 
 const REQUEST_CONFIG_URL = REQUEST_CONFIG.map((param) => param.join('=')).join('&')
 
-const request = (target) => {
-  return fetch(`${URL}/${target}?${REQUEST_CONFIG_URL}`, {
+const request = memoizee((target) => {
+  return fetch(`${HOST}/${target}?${REQUEST_CONFIG_URL}`, {
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },
     redirect: 'follow'
   }).then((response) => response.json())
-}
+})
 
 export const requestList = (target) => {
   return request(`v3/lists/${target}`)
