@@ -16,3 +16,7 @@ export const REQUEST_CONFIG = [
   ['locale', 'es'],
   ['market_code', 'es']
 ]
+
+export const VIDEO_URL = 'https://bitmovin-a.akamaihd.net/content/art-of-motion_drm/mpds/11331.mpd'
+export const LICENCE_KEY = 'com.widevine.alpha'
+export const LICENCE_SERVER_URL = 'https://widevine-proxy.appspot.com/proxy'

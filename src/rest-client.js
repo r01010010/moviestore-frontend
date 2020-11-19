@@ -17,4 +17,8 @@ export const requestList = (target) => {
   return request(`v3/lists/${target}`)
 }
 
+export const requestFilm = (id) => {
+  return request(`/v3/movies/${id}`)
+}
+
 export default request

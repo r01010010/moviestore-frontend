@@ -1,32 +1,69 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
+import { MediaPlayer } from 'dashjs';
 import colors from './colors'
+import {requestFilm} from './rest-client'
+import { LICENCE_KEY, LICENCE_SERVER_URL, VIDEO_URL } from './constants'
 
 const Film = ({ film }) => {
-  const { title, year, images: { artwork }, highlighted_score: { score } } = film
+  const [detail, setDetail] = useState(null)
+  const { id, title, year, images: { artwork }, highlighted_score: { score } } = film
+  const videoRef = useRef()
+  const player = MediaPlayer().create()
+
+  const loadDetail = () => {
+    setDetail({})
+
+    requestFilm(id)
+      .then(res => {
+        if (!res || !res.data) return
+        setDetail(res)
+        player.initialize(videoRef.current, VIDEO_URL, true)
+        player.setProtectionData({[LICENCE_KEY]: {
+          serverURL: LICENCE_SERVER_URL
+        }})
+      })
+  }
 
   return (
     <Container>
-      <Poster src={artwork} />
-      <Data><Rating score={score}>{score}</Rating> <Year>{year}</Year></Data>
-      <Title>{title}</Title>
+      <Left onClick={() => loadDetail()}>
+        <Poster src={artwork} />
+        <Data><Rating score={score}>{score}</Rating> <Year>{year}</Year></Data>
+        <Title>{title}</Title>
+      </Left>
+      <Right visible={detail}>
+        { !!detail &&
+          <video ref={videoRef} controls data-dashjs-player autoPlay width={500} /> 
+        }
+      </Right>
     </Container>
   )
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const Left = styled.div`
   min-width: 20em;
   min-height: 30em;
-  padding: 1.6em;
+  padding: 0 1.6em;
   opacity: .7;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
 
   transition: all .3s;
     &:hover{
     opacity: 1;
     transform: scale(1.2);
   }
+`
+
+const Right = styled.div`
+  min-width: 45em;
 `
 
 const Poster = styled.img`
