@@ -6,15 +6,16 @@ import { requestList } from './rest-client'
 import { LIST_IDS } from './constants'
 import colors from './colors'
 
-const App = () => {
-  return (
-    <Container>
-      {[...LIST_IDS.keys()].map((id) => 
+const App = () => (
+  <Container>
+    {[...LIST_IDS.keys()].map((id) => (
+      <>
         <Carrousel key={id} listId={id} />
-      )}
-    </Container>
-  )
-}
+        <Separator height={3} />
+      </>
+    ))}
+  </Container>
+)
 
 const Container = styled.div`
   width: 100%;
@@ -26,6 +27,10 @@ const Container = styled.div`
   align-items: center;
   color: ${colors.white00};
   background-color: ${colors.black00};
+`
+
+const Separator = styled.div`
+  height: ${({ height }) => `${height}em` || 'auto'};
 `
 
 ReactDOM.render(<App />, document.getElementById('app'))

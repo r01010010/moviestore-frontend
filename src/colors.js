@@ -14,5 +14,15 @@ export default {
   green01: '#4CD964',
   blue00: '#16467E',
   blue01: '#FFFFFF',
-  orange01: '#FA9500'
+  orange01: '#FA9500',
+
+  red: ['#FF3B30', '#FF453A'],
+  orange: ['#FF9500', '#FF9F0A'],
+  yellow: ['#FFCC00', '#FFD60A'],
+  green: ['#34C759', '#32D74B'],
+  blue: ['#5AC8FA', '#64D2FF'],
+  ocean: ['#007AFF', '#0A84FF'],
+  silk: ['#5856D6', '#0A84FF'],
+  purple: ['#AF52DE', '#BF5AF2'],
+  pink: ['#FF2D55', '#FF375F'],
 }

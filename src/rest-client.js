@@ -1,15 +1,17 @@
 import memoizee from 'memoizee'
 import { HOST, REQUEST_CONFIG } from './constants'
 
-const REQUEST_CONFIG_URL = REQUEST_CONFIG.map((param) => param.join('=')).join('&')
+const REQUEST_CONFIG_URL = REQUEST_CONFIG.map((param) => param.join('=')).join(
+  '&'
+)
 
 const request = memoizee((target) => {
   return fetch(`${HOST}/${target}?${REQUEST_CONFIG_URL}`, {
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    redirect: 'follow'
+    redirect: 'follow',
   }).then((response) => response.json())
 })
 
