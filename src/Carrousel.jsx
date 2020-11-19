@@ -33,7 +33,13 @@ const Carrousel = ({ listId }) => {
   )
 }
 
+const dimensions = `
+  min-height: 35em;
+`
+
 const Container = styled.div`
+  ${dimensions}
+
   position: relative;
   width: 100%;
   overflow-x: scroll;

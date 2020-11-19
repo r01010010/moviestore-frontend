@@ -22,7 +22,8 @@ const Film = ({ film }) => {
     requestFilm(id).then((res) => {
       if (!res || !res.data) return
       setDetail(res)
-      playTrailer()
+      // TODO Make it in Context
+      // playTrailer()
     })
   }
 
@@ -33,16 +34,16 @@ const Film = ({ film }) => {
           <VideoIconContainer>
             <VideoIcon className="icon-video" />
           </VideoIconContainer>
-          <div>
+          <PosterImgContainer>
             <Poster
               src={artwork}
               isImgLoaded={isImgLoaded}
               onLoad={() => setIsImgLoaded(true)}
             />
-          </div>
-          <PlayIconContainer>
+          </PosterImgContainer>
+          {/* <PlayIconContainer>
             <PlayIcon className="play-icon" />
-          </PlayIconContainer>
+          </PlayIconContainer> */}
         </PosterView>
         <Data>
           <Rating score={score}>{score}</Rating>
@@ -55,14 +56,20 @@ const Film = ({ film }) => {
   )
 }
 
+const dimensions = `
+  min-width: 18em;
+  max-width: 18em;
+  min-height: 25.188em;
+`
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
 `
 
 const Left = styled.div`
-  min-width: 18em;
-  max-width: 18em;
+  ${dimensions}
+
   padding: 0 1.6em;
   opacity: 0.7;
   overflow: hidden;
@@ -117,10 +124,14 @@ const Detail = styled.div`
   }
 `
 
+const PosterImgContainer = styled.div`
+  position: absolute;
+  ${dimensions}
+  min-height: 25.188em;
+`
+
 const Poster = styled.img`
-  min-width: 18em;
-  max-width: 18em;
-  max-height: 25.188em;
+  ${dimensions};
   min-height: 25.188em;
   border-radius: 10px;
   opacity: ${({ isImgLoaded }) => (isImgLoaded ? 1 : 0)};
@@ -174,6 +185,8 @@ const VideoIcon = styled.div`
 `
 
 const PosterView = styled.div`
+  ${dimensions}
+
   position: relative;
   display: flex;
   flex-direction: row;
