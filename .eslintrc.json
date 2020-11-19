@@ -4,11 +4,11 @@
   },
   "extends": [
     // "airbnb",
-    // "eslint:recommended",
+    "eslint:recommended",
     // "plugin:react/recommended",
     "standard",
     "standard-jsx",
-    "standard-react"
+    // "standard-react"
   ],
   "parserOptions": {
     "ecmaFeatures": {
