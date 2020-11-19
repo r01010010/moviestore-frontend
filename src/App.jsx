@@ -25,7 +25,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: ${colors.white00};
-  background-color: ${colors.black03};
+  background-color: ${colors.black00};
 `
 
 ReactDOM.render(<App />, document.getElementById('app'))

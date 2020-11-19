@@ -43,4 +43,8 @@ const Content = styled.div`
   padding: 2em 10em;
 `
 
+const Title = styled.div`
+
+`
+
 export default Carrousel
