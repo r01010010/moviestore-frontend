@@ -2,22 +2,59 @@ import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import Carrousel from './Carrousel.jsx'
-import { requestList } from './rest-client'
+import { requestList, requestFilm } from './rest-client'
 import { LIST_IDS } from './constants'
 import colors from './colors'
+import Detail from './Detail.jsx'
 
-const App = () => (
-  <Container>
-    {[...LIST_IDS.keys()].map((id) => (
+export const Context = React.createContext()
+
+const App = () => {
+  const [detail, setDetail] = useState(null)
+  const [scrollTop, setScrollTop] = useState(0)
+
+  const closeDetail = () => {
+    setDetail(null)
+    window.document.documentElement.style.overflowY = 'scroll'
+  }
+
+  const openDetail = (id) => {
+    setScrollTop(window.document.documentElement.scrollTop)
+
+    setDetail('loading')
+
+    requestFilm(id).then((res) => {
+      if (!res || !res.data) return
+      setDetail(res.data)
+    })
+
+    window.document.documentElement.style.overflowY = 'hidden'
+  }
+
+  return (
+    <Context.Provider
+      value={{
+        detail,
+        openDetail,
+        closeDetail,
+        scrollTop,
+        setScrollTop,
+      }}
+    >
       <>
-        <Carrousel key={id} listId={id} />
-        <Separator height={3} />
+        <Container>
+          {[...LIST_IDS.keys()].map((id) => (
+            <Carrousel key={id} listId={id} />
+          ))}
+        </Container>
+        {detail && <Detail />}
       </>
-    ))}
-  </Container>
-)
+    </Context.Provider>
+  )
+}
 
 const Container = styled.div`
+  position: absolute;
   width: 100%;
   margin: 0;
   padding: 2em 0;
@@ -27,10 +64,7 @@ const Container = styled.div`
   align-items: center;
   color: ${colors.white00};
   background-color: ${colors.black00};
-`
-
-const Separator = styled.div`
-  height: ${({ height }) => `${height}em` || 'auto'};
+  z-index: 0;
 `
 
 ReactDOM.render(<App />, document.getElementById('app'))

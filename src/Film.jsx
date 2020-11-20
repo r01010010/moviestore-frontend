@@ -1,57 +1,41 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import styled from 'styled-components'
+import _ from 'lodash/fp'
 import colors from './colors'
-import { requestFilm } from './rest-client'
+import { Context } from './App.jsx'
 
 const Film = ({ film }) => {
-  const [detail, setDetail] = useState(null)
   const [isImgLoaded, setIsImgLoaded] = useState(null)
+  const { detail, openDetail } = useContext(Context)
 
   const {
     id,
     title,
     year,
-    image,
-    images: { artwork, snapshot },
+    images: { artwork },
     highlighted_score: { score },
   } = film
 
-  const loadDetail = () => {
-    if (detail) return
-
-    requestFilm(id).then((res) => {
-      if (!res || !res.data) return
-      setDetail(res)
-      // TODO Make it in Context
-      // playTrailer()
-    })
-  }
-
   return (
-    <Container>
-      <Left onClick={() => loadDetail()} inDetail={!!detail}>
-        <PosterView>
-          <VideoIconContainer>
-            <VideoIcon className="icon-video" />
-          </VideoIconContainer>
-          <PosterImgContainer>
-            <Poster
-              src={artwork}
-              isImgLoaded={isImgLoaded}
-              onLoad={() => setIsImgLoaded(true)}
-            />
-          </PosterImgContainer>
-          {/* <PlayIconContainer>
-            <PlayIcon className="play-icon" />
-          </PlayIconContainer> */}
-        </PosterView>
-        <Data>
-          <Rating score={score}>{score}</Rating>
-          {` `}
-          <Year>{year}</Year>
-        </Data>
-        <Title>{title}</Title>
-      </Left>
+    <Container onClick={() => openDetail(id)}>
+      <PosterView>
+        <VideoIconContainer>
+          <VideoIcon className="icon-video" />
+        </VideoIconContainer>
+        <PosterImgContainer>
+          <Poster
+            src={artwork}
+            isImgLoaded={isImgLoaded}
+            onLoad={() => setIsImgLoaded(true)}
+          />
+        </PosterImgContainer>
+      </PosterView>
+      <Data>
+        <Rating score={score}>{score}</Rating>
+        {` `}
+        <Year>{year}</Year>
+      </Data>
+      <Title>{title}</Title>
     </Container>
   )
 }
@@ -64,10 +48,8 @@ const dimensions = `
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-`
-
-const Left = styled.div`
+  flex-direction: column;
+  cursor: pointer;
   ${dimensions}
 
   padding: 0 1.6em;
@@ -77,20 +59,13 @@ const Left = styled.div`
   position: relative;
   transition: all 0.2s ease-in-out 0.001s;
 
-  ${({ inDetail }) =>
-    inDetail
-      ? // ? 'transition: all 1s; transform: rotateZ(-20deg) scale(.7); top: 1em; left: 10em;'
-        'opacity: 1;'
-      : `
-        &:hover {
-          opacity: 1;
-          // transform: scale(1.1);
+  &:hover {
+    opacity: 1;
+  }
 
-          & .play-icon {
-            opacity: 1;
-          }
-        }      
-      `}
+  &:active {
+    opacity: 0.7;
+  }
 `
 
 const Title = styled.div`
@@ -150,17 +125,6 @@ const Rating = styled.div`
   display: flex;
   justify-content: center;
   margin-right: 0.7em;
-`
-
-const Snapshot = styled.div`
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(0, 0, 0, 0.15) 60%,
-    rgba(0, 0, 0, 0.5) 70%,
-    rgba(0, 0, 0, 0.7) 80%,
-    #000 100%
-  );
 `
 
 const PlayIconContainer = styled.div`

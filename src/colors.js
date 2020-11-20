@@ -3,6 +3,7 @@ export default {
   black00: '#17181B',
   black01: '#1C1C1C',
   black03: '#232326',
+  black04: '#252525',
   grey00: '#2F2F2F',
   grey01: '#5B5B5B',
   white00: '#F9F9F9',
@@ -15,6 +16,7 @@ export default {
   blue00: '#16467E',
   blue01: '#FFFFFF',
   orange01: '#FA9500',
+  yellow00: '#ffe300',
 
   red: ['#FF3B30', '#FF453A'],
   orange: ['#FF9500', '#FF9F0A'],
