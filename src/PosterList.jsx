@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Film from './Film.jsx'
+import PosterItem from './PosterItem.jsx'
 import { requestList } from './rest-client'
 import colors from './colors'
 
-const Carrousel = ({ listId }) => {
+const PosterList = ({ listId }) => {
   const [films, setFilms] = useState([])
   const [data, setData] = useState({})
   const [firstLoad, setFirstLoad] = useState(true)
@@ -21,20 +21,22 @@ const Carrousel = ({ listId }) => {
     }
   }, [firstLoad])
 
-  return (
+  return films.length ? (
     <Container>
       <Title>{data.name}</Title>
-      <Films>
+      <PosterItems>
         {films.map((film) => (
-          <Film key={film.id} film={film} />
+          <PosterItem key={film.id} film={film} />
         ))}
-      </Films>
+      </PosterItems>
     </Container>
+  ) : (
+    <></>
   )
 }
 
 const dimensions = `
-  min-height: 35em;
+  min-height: 38em;
 `
 
 const Container = styled.div`
@@ -55,7 +57,7 @@ const Title = styled.div`
   color: ${colors.white00};
 `
 
-const Films = styled.div`
+const PosterItems = styled.div`
   width: auto;
   position: relative;
   display: flex;
@@ -64,4 +66,4 @@ const Films = styled.div`
   height: auto;
   padding: 2em 10em;
 `
-export default Carrousel
+export default PosterList

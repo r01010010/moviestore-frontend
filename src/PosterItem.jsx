@@ -4,7 +4,7 @@ import _ from 'lodash/fp'
 import colors from './colors'
 import { Context } from './App.jsx'
 
-const Film = ({ film }) => {
+const PosterItem = ({ film }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(null)
   const { detail, openDetail } = useContext(Context)
 
@@ -16,7 +16,7 @@ const Film = ({ film }) => {
     highlighted_score: { score },
   } = film
 
-  return (
+  return id ? (
     <Container onClick={() => openDetail(id)}>
       <PosterView>
         <VideoIconContainer>
@@ -37,6 +37,8 @@ const Film = ({ film }) => {
       </Data>
       <Title>{title}</Title>
     </Container>
+  ) : (
+    <></>
   )
 }
 
@@ -158,4 +160,4 @@ const PosterView = styled.div`
   align-items: center;
   font-weight: bold;
 `
-export default Film
+export default PosterItem

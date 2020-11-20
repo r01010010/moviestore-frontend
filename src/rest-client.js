@@ -7,8 +7,8 @@ const REQUEST_CONFIG_URL = REQUEST_CONFIG.map((param) => param.join('=')).join(
 
 const request = memoizee((target) => {
   return fetch(
-    // `https://cors-anywhere.herokuapp.com/${HOST}/${target}?${REQUEST_CONFIG_URL}`,
-    `${HOST}/${target}?${REQUEST_CONFIG_URL}`,
+    `https://cors-anywhere.herokuapp.com/${HOST}/${target}?${REQUEST_CONFIG_URL}`,
+    // `${HOST}/${target}?${REQUEST_CONFIG_URL}`,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const requestList = (target) => {
   return request(`v3/lists/${target}`)
 }
 
-export const requestFilm = (id) => {
+export const requestDetail = (id) => {
   return request(`/v3/movies/${id}`)
 }
 

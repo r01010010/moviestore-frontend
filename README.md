@@ -4,3 +4,7 @@
 - no fetch testing (errors, etc)
 - lazy load of lists and pictures
 - support list pagination
+
+- lazy loading
+- mobile view
+- testing

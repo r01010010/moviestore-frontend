@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import Carrousel from './Carrousel.jsx'
-import { requestList, requestFilm } from './rest-client'
+import PosterList from './PosterList.jsx'
+import { requestList, requestDetail } from './rest-client'
 import { LIST_IDS } from './constants'
 import colors from './colors'
 import Detail from './Detail.jsx'
@@ -23,7 +23,7 @@ const App = () => {
 
     setDetail('loading')
 
-    requestFilm(id).then((res) => {
+    requestDetail(id).then((res) => {
       if (!res || !res.data) return
       setDetail(res.data)
     })
@@ -44,7 +44,7 @@ const App = () => {
       <>
         <Container>
           {[...LIST_IDS.keys()].map((id) => (
-            <Carrousel key={id} listId={id} />
+            <PosterList key={id} listId={id} />
           ))}
         </Container>
         {detail && <Detail />}
