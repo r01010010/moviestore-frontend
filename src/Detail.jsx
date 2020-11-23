@@ -1,7 +1,9 @@
 import React, { useEffect, useContext, useState, useRef } from 'react'
 import styled from 'styled-components'
 import _ from 'lodash'
+import { useSpring, animated } from 'react-spring'
 
+import { requestDetail } from './rest-client'
 import colors from './colors'
 import Separator from './Separator.jsx'
 
@@ -13,11 +15,13 @@ import DataPill from './DataPill.jsx'
 import Loader from './Loader.jsx'
 
 const Detail = () => {
-  const { detail = {}, scrollTop, closeDetail } = useContext(Context)
+  const { detail = {}, setDetail, closeDetail } = useContext(Context)
   const [isImgLoaded, setIsImgLoaded] = useState(false)
   const [isVideoLoading, setIsVideoLoading] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [firstLoad, setFirstLoad] = useState(true)
+  const [scrollTop, setScrollTop] = useState(0)
 
   const detailRef = useRef()
 
@@ -28,14 +32,26 @@ const Detail = () => {
   const director = _.get(detail, 'directors[0].name')
   const country = _.get(detail, 'countries[0].name')
 
+  useEffect(() => {
+    if (firstLoad) {
+      setScrollTop(window.document.documentElement.scrollTop)
+
+      requestDetail(id).then((res) => {
+        if (!res || !res.data) return
+        setDetail(res.data)
+        window.document.documentElement.style.overflowY = 'hidden'
+      })
+    }
+  }, [firstLoad])
+
+  const containerSpring = useSpring({
+    opacity: isImgLoaded ? 1 : 0,
+  })
+
   return (
-    <Container ref={detailRef} isVisible={!isClosing && !!id} top={scrollTop}>
+    <Container ref={detailRef} style={containerSpring} top={scrollTop}>
       <ViewContainer isVisible={!!id}>
-        <VideoContainer
-          background={snapshot}
-          isImgLoaded={isImgLoaded}
-          isVideoLoading={isVideoLoading}
-        >
+        <VideoContainer snapshot={snapshot} isVideoLoading={isVideoLoading}>
           <Img
             key={snapshot}
             src={snapshot}
@@ -95,15 +111,14 @@ const Detail = () => {
   )
 }
 
-const Container = styled.div`
+const Container = styled(animated.div)`
   min-width: 100%;
   min-height: 100%;
   position: absolute;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.5s ease-out;
   background: rgba(20, 20, 20, 0.8);
-  ${({ isVisible, top }) => (isVisible ? `top: ${top}px;` : '')}
+  top: ${({ top }) => top}px;
 `
 
 const Title = styled.div`
@@ -138,11 +153,8 @@ const VideoContainer = styled.div`
   position: absolute;
   justify-content: center;
   align-items: center;
-  background-image: url(${({ isImgLoaded, background }) =>
-    isImgLoaded ? background : 'none'});
   background-size: cover;
-  opacity: ${({ isImgLoaded }) => (isImgLoaded ? 1 : 0)};
-  transition: all 1s ease-out;
+  background-image: url(${({ snapshot }) => snapshot});
 `
 
 const DataContainer = styled.div`
@@ -153,9 +165,6 @@ const DataContainer = styled.div`
   align-items: center;
   background: transparent;
   color: ${colors.white00};
-
-  transition: all 1s ease-out;
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
 `
 
 const TopRow = styled.div`
@@ -205,7 +214,7 @@ const BottomRow = styled.div`
     180deg,
     rgba(153, 218, 255, 0) 0%,
     rgba(0, 0, 0, 0.7) 80%
-  ); /* w3c */
+  );
 `
 
 const DescriptionRow = styled.div`

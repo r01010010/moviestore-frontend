@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import PosterList from './PosterList.jsx'
-import { requestList, requestDetail } from './rest-client'
 import { LIST_IDS } from './constants'
 import colors from './colors'
 import Detail from './Detail.jsx'
@@ -11,7 +10,6 @@ export const Context = React.createContext()
 
 const App = () => {
   const [detail, setDetail] = useState(null)
-  const [scrollTop, setScrollTop] = useState(0)
 
   const closeDetail = () => {
     setDetail(null)
@@ -19,26 +17,16 @@ const App = () => {
   }
 
   const openDetail = (id) => {
-    setScrollTop(window.document.documentElement.scrollTop)
-
-    setDetail('loading')
-
-    requestDetail(id).then((res) => {
-      if (!res || !res.data) return
-      setDetail(res.data)
-    })
-
-    window.document.documentElement.style.overflowY = 'hidden'
+    setDetail({ id })
   }
 
   return (
     <Context.Provider
       value={{
         detail,
+        setDetail,
         openDetail,
         closeDetail,
-        scrollTop,
-        setScrollTop,
       }}
     >
       <>

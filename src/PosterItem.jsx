@@ -6,7 +6,7 @@ import { Context } from './App.jsx'
 
 const PosterItem = ({ film }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(null)
-  const { detail, openDetail } = useContext(Context)
+  const { openDetail } = useContext(Context)
 
   const {
     id,
