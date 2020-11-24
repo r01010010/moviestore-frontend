@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import { Context } from './App.jsx'
+import { Context } from './component.App.jsx'
 import { MediaPlayer } from 'dashjs'
-import { LICENCE_KEY, LICENCE_SERVER_URL, VIDEO_URL } from './constants'
+import { LICENCE_KEY, LICENCE_SERVER_URL, VIDEO_URL } from './constants.apis'
 
 let player = null
 

@@ -8,7 +8,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack-cli serve --mode development"
+    "dev": "webpack-cli serve --mode development",
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

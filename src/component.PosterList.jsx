@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import PosterItem from './PosterItem.jsx'
-import ScrollButtons from './ScrollButtons.jsx'
-import { requestList } from './rest-client'
-import colors from './colors'
+import PosterItem from './component.PosterItem.jsx'
+import ScrollButtons from './component.ScrollButtons.jsx'
+import { requestList } from './api.rest-client'
+import colors from './constants.colors'
 
 const PosterList = ({ listId }) => {
   const [films, setFilms] = useState([])

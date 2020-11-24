@@ -1,5 +1,5 @@
 import memoizee from 'memoizee'
-import { HOST, REQUEST_CONFIG } from './constants'
+import { HOST, REQUEST_CONFIG } from './constants.apis'
 
 const REQUEST_CONFIG_URL = REQUEST_CONFIG.map((param) => param.join('=')).join(
   '&'

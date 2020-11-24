@@ -1,7 +1,7 @@
 import React from 'react'
-import PosterItem, { dimensions } from './PosterItem.jsx'
+import PosterItem, { dimensions } from './component.PosterItem.jsx'
 import styled from 'styled-components'
-import colors from './colors'
+import colors from './constants.colors'
 
 const calcDimensions = (itemsLength) => {
   const base = document.body.style.fontSize || 16

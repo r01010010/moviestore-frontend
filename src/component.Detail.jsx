@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import _ from 'lodash'
 import { useSpring, animated } from 'react-spring'
 
-import { requestDetail } from './rest-client'
-import colors from './colors'
-import Separator from './Separator.jsx'
+import { requestDetail } from './api.rest-client'
+import colors from './constants.colors'
+import Separator from './component.Separator.jsx'
 
-import { Context } from './App.jsx'
-import Video from './Video.jsx'
+import { Context } from './component.App.jsx'
+import Video from './component.Video.jsx'
 
-import Button from './Button.jsx'
-import DataPill from './DataPill.jsx'
-import Loader from './Loader.jsx'
+import Button from './component.Button.jsx'
+import DataPill from './component.DataPill.jsx'
+import Loader from './component.Loader.jsx'
 
 const Detail = () => {
   const { detail = {}, setDetail, closeDetail } = useContext(Context)

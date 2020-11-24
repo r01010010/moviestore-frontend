@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-import PosterList from './PosterList.jsx'
-import { LIST_IDS } from './constants'
-import colors from './colors'
-import Detail from './Detail.jsx'
+import PosterList from './component.PosterList.jsx'
+import { LIST_IDS } from './constants.apis'
+import colors from './constants.colors'
+import Detail from './component.Detail.jsx'
 
 export const Context = React.createContext()
 

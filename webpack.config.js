@@ -2,7 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 module.exports = {
-  entry: './src/App.jsx',
+  entry: './src/component.App.jsx',
   output: {
     // path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -29,4 +29,7 @@ module.exports = {
     disableHostCheck: true, //for ngrok
   },
   devtool: 'source-map',
+  optimization: {
+    minimize: true,
+  },
 }
