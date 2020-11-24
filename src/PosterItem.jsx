@@ -42,19 +42,25 @@ const PosterItem = ({ film }) => {
   )
 }
 
-const dimensions = `
-  min-width: 18em;
-  max-width: 18em;
-  min-height: 25.188em;
+export const dimensions = {
+  width: 18,
+  height: 25.188,
+  horizontalPadding: 1.6,
+}
+
+const dimensionsStyle = `
+  min-width: ${dimensions.width}em;
+  max-width: ${dimensions.width}em;
+  min-height: ${dimensions.height}em;
 `
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  ${dimensions}
+  ${dimensionsStyle}
 
-  padding: 0 1.6em;
+  padding: 0 ${dimensions.horizontalPadding}em;
   opacity: 0.7;
   overflow: hidden;
   border-radius: 10px;
@@ -103,12 +109,12 @@ const Detail = styled.div`
 
 const PosterImgContainer = styled.div`
   position: absolute;
-  ${dimensions}
+  ${dimensionsStyle}
   min-height: 25.188em;
 `
 
 const Poster = styled.img`
-  ${dimensions};
+  ${dimensionsStyle};
   min-height: 25.188em;
   border-radius: 10px;
   opacity: ${({ isImgLoaded }) => (isImgLoaded ? 1 : 0)};
@@ -151,7 +157,7 @@ const VideoIcon = styled.div`
 `
 
 const PosterView = styled.div`
-  ${dimensions}
+  ${dimensionsStyle}
 
   position: relative;
   display: flex;
