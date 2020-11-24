@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-cli serve --mode development",
-    "analyze": "source-map-explorer build/static/js/main.*"
+    "analyze": "yarn run source-map-explorer dist/bundle.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -38,6 +38,7 @@
     "eslint-webpack-plugin": "^2.3.0",
     "html-webpack-plugin": "^4.5.0",
     "prettier": "^2.1.2",
+    "source-map-explorer": "^2.5.0",
     "webpack": "^5.5.1",
     "webpack-bundle-analyzer": "^4.1.0",
     "webpack-cli": "^4.2.0",
