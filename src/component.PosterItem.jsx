@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import VisibilitySensor from 'react-visibility-sensor'
 import styled from 'styled-components'
-import _ from 'lodash/fp'
 import colors from './constants.colors'
 import { Context } from './component.App.jsx'
 

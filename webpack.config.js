@@ -1,5 +1,7 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 module.exports = {
   entry: './src/component.App.jsx',
@@ -19,7 +21,11 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebPackPlugin({ template: './public/index.html' })],
+
+  plugins: [
+    new HtmlWebPackPlugin({ template: './public/index.html' }),
+    new BundleAnalyzerPlugin(),
+  ],
   devServer: {
     contentBase: path.join(__dirname, './public'),
     compress: true,

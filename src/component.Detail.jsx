@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState, useRef } from 'react'
 import styled from 'styled-components'
-import _ from 'lodash'
+import get from 'lodash/get'
 import { useSpring, animated } from 'react-spring'
 
 import { requestDetail } from './api.rest-client'
@@ -27,10 +27,10 @@ const Detail = () => {
 
   const { id, duration, title, year, plot, short_plot, original_title } = detail
 
-  const snapshot = _.get(detail, 'images.snapshot')
-  const classification = _.get(detail, 'classification.name')
-  const director = _.get(detail, 'directors[0].name')
-  const country = _.get(detail, 'countries[0].name')
+  const snapshot = get(detail, 'images.snapshot')
+  const classification = get(detail, 'classification.name')
+  const director = get(detail, 'directors[0].name')
+  const country = get(detail, 'countries[0].name')
 
   useEffect(() => {
     if (firstLoad) {
