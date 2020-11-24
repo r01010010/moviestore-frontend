@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
+import VisibilitySensor from 'react-visibility-sensor'
 import styled from 'styled-components'
 import _ from 'lodash/fp'
 import colors from './colors'
@@ -6,6 +7,7 @@ import { Context } from './App.jsx'
 
 const PosterItem = ({ film }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(null)
+  const [isInViewport, setIsInViewport] = useState(false)
   const { openDetail } = useContext(Context)
 
   const {
@@ -16,27 +18,38 @@ const PosterItem = ({ film }) => {
     highlighted_score: { score },
   } = film
 
+  const onViewportPresenceChange = (isVisible) => {
+    setIsInViewport(isVisible)
+    console.log('Element is now %s', isVisible ? 'visible' : 'hidden')
+  }
   return id ? (
-    <Container onClick={() => openDetail(id)}>
-      <PosterView>
-        <VideoIconContainer>
-          <VideoIcon className="icon-video" />
-        </VideoIconContainer>
-        <PosterImgContainer>
-          <Poster
-            src={artwork}
-            isImgLoaded={isImgLoaded}
-            onLoad={() => setIsImgLoaded(true)}
-          />
-        </PosterImgContainer>
-      </PosterView>
-      <Data>
-        <Rating score={score}>{score}</Rating>
-        {` `}
-        <Year>{year}</Year>
-      </Data>
-      <Title>{title}</Title>
-    </Container>
+    <VisibilitySensor
+      onChange={onViewportPresenceChange}
+      partialVisibility={true}
+    >
+      <Container onClick={() => openDetail(id)}>
+        <PosterView>
+          <VideoIconContainer>
+            <VideoIcon className="icon-video" />
+          </VideoIconContainer>
+          <PosterImgContainer>
+            {isInViewport && (
+              <Poster
+                src={artwork}
+                isImgLoaded={isImgLoaded}
+                onLoad={() => setIsImgLoaded(true)}
+              />
+            )}
+          </PosterImgContainer>
+        </PosterView>
+        <Data>
+          <Rating score={score}>{score}</Rating>
+          {` `}
+          <Year>{year}</Year>
+        </Data>
+        <Title>{title}</Title>
+      </Container>
+    </VisibilitySensor>
   ) : (
     <></>
   )
