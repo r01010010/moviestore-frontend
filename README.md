@@ -1,4 +1,4 @@
-# Paloma's Rakuten Test
+# Movie Store
 
 ```bash
 # Install
